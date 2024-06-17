@@ -1,0 +1,345 @@
+{% load static %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<style>
+    .no-animation {
+        transition: none !important;
+    }
+    .header-navbar .navbar-brand img {
+        width: 100%;
+    }
+    .header-navbar .navbar-toggler-menu {
+        font-size: 2.5rem;
+        font-weight: bold;
+    }
+    .header-navbar .nav-link {
+        color: black;
+        font-weight: bold;
+    }
+    #fullScreenMenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    z-index: 99999;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.5s ease-in-out;
+}
+
+#fullScreenMenu.open {
+    transform: translateX(0);
+}
+
+    #fullScreenMenu .navbar-nav {
+        text-align: left;
+    }
+    #fullScreenMenu .navbar-nav .nav-link {
+        color: white;
+        font-weight: 650;
+        letter-spacing: 2px;
+        font-size: 2.3rem;
+        margin-top: 2vh;
+        margin-left: 2vh;
+    }
+    @media (min-width: 992px) {
+        #closeMenu {
+            display: none;
+        }
+        .mobile-header {
+            display: none;
+        }
+        #logo {
+            max-width: 300px !important;
+        }
+        .dropdown-menu{
+            border:none !important;
+            border-top: 1px solid #bf9b64 !important;
+            outline: none;
+            background-color: white;
+            border-radius: 0 !important;
+        }
+        .dropdown-menu .dropdown-item:hover{
+            border:none;
+            outline: none;
+            background-color: white;
+            border-radius: 0;
+            color: #bf9b64;
+        }
+    }
+    @media (max-width: 992px) {
+        .desktop-header {
+            display: none !important;
+        }
+        .mobile-header {
+            display: flex;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 9999999;
+            align-items: center;
+            background-color: white;
+            padding: 10px 20px;
+        }
+        #logo {
+            width: 450px !important;
+        }
+        #menu {
+            font-size: 3.2rem;
+            font-weight: bolder !important;
+            color: black !important;
+            text-decoration: none;
+        }
+        .submenu {
+          display: none;
+        }
+        .submenu.show {
+          display: block;
+        }
+        .nav-link.menu-link:hover {
+            color: #bf9b64 !important;
+        }
+    }
+
+    .active-submenu {
+      color: #bf9b64 !important;
+    }
+    .inactive-submenu {
+        color: white !important;
+    }
+
+    @media (min-width: 998px) {
+        .header-navbar .nav-link {
+            font-size: 1rem;
+            margin-left: 6px;
+        }
+        .header-navbar .nav-link:hover{
+            color: #bf9b64;
+        }
+        .dropdown-item{
+            font-size: 1rem;
+        }
+    }
+    @media (min-width: 1200px) {
+        .header-navbar .nav-link{
+            font-size: 1.2rem;
+            margin-left: 15px;
+        }
+        .header-navbar .nav-link:hover{
+            color: #bf9b64;
+        }
+        .dropdown-item{
+            font-size: 1.1rem;
+        }
+    }
+    @media (min-width: 1800px) {
+        .nav-link {
+            font-size: 1.50rem !important;
+            margin-left: 15px;
+        }
+        .header-navbar .nav-link:hover{
+            color: #bf9b64;
+        }
+        .dropdown-item{
+            font-size: 1.3rem;
+        }
+    }
+</style>
+
+<nav id="mobile-header" class="navbar navbar-expand-lg header-navbar mobile-header">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'index' %}">
+            <img id="logo" class="img-fluid" src="{% static 'img/logo.png' %}" alt="img">
+        </a>
+        <!-- Кнопка меню для мобильных устройств -->
+        <button id="menu" class="navbar-toggler navbar-toggler-menu" type="button" aria-label="Toggle navigation" onclick="toggleMenuText()">
+            <img id="menuIcon" src="{% static 'img/menu.png' %}" style="width: 70px">
+        </button>
+        <button id="closeMenu" type="button" aria-label="Close" style="display: none;">
+            Close
+        </button>
+        <!-- /Кнопка меню для мобильных устройств -->
+    </div>
+</nav>
+
+<!-- Десктопный хедер внутри контейнера -->
+<div class="container-fluid py-3" id="no">
+    <div class="row">
+        <div class="col-12">
+            <nav id="header" class="navbar navbar-expand-lg header-navbar desktop-header">
+                <div class="container-fluid" id="header-fixed">
+                    <a class="navbar-brand" href="{% url "index" %}">
+                        <img id="logo" class="img-fluid" src="{% static "img/logo.png" %}" alt="img">
+                    </a>
+                    <div class="navbar-collapse" id="navbarSupportedContent" style="display: none;">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link text-uppercase" href="{% url "index" %}">Главная</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-uppercase" id="performanceLink" href="{% url 'index' %}#performanceLink">Афиша</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-uppercase" href="{% url 'repertory' %}">Репертуар</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-uppercase" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                О театре
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#">История театра</a>
+                                    <a class="dropdown-item" href="#">Схема зала</a>
+                                    <a class="dropdown-item" href="#">Наш коллектив</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-uppercase" href="{% url 'backstage' %}">Backstage</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- Полноэкранное меню -->
+<div id="fullScreenMenu" style="background-color: #1a1a1a">
+    <div class="navbar-collapse" id="navbarSupportedContentFullScreen">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item" style="margin-top: 12%; border-bottom: 2px solid rgba(255,255,255,0.2); padding-bottom: 4%">
+                <a class="nav-link menu-link text-uppercase" href="{% url 'index' %}">Главная</a>
+            </li>
+            <li class="nav-item" style="border-bottom: 2px solid rgba(255,255,255,0.2); padding-bottom: 4%">
+                <a class="nav-link menu-link text-uppercase" id="performanceLinkFullScreen" href="{% url 'index' %}#performanceLink">Афиша</a>
+            </li>
+            <li class="nav-item" style="border-bottom: 2px solid rgba(255,255,255,0.2); padding-bottom: 4%">
+                <a class="nav-link menu-link text-uppercase" href="{% url 'repertory' %}">Репертуар</a>
+            </li>
+               <li class="nav-item" style="border-bottom: 2px solid rgba(255,255,255,0.2); padding-bottom: 4%">
+                <span class="nav-link text-uppercase" style="font-size: 2.3rem; color: white" onclick="toggleSubmenu()">
+                    О театре <img id="moreMenuIcon" src="{% static 'img/more_menu.png' %}" style="width: 80px;transform: translateY(-5%)"><img id="lessMenuIcon" style="width: 80px;transform: translateY(-5%)" class="d-none" src="{% static 'img/less_menu.png' %}">
+                </span>
+                    <ul class="submenu pl-0">
+                          <li class="nav-item" style="padding-bottom: 2%; padding-left: 0 !important;">
+                            <a class="nav-link menu-link pl-0" href="#">История театра</a>
+                          </li>
+                          <li class="nav-item" style="padding-bottom: 2%; padding-left: 0 !important;">
+                            <a class="nav-link menu-link pl-0" href="#">Схема зала</a>
+                          </li>
+                          <li class="nav-item" style="padding-left: 0 !important;">
+                            <a class="nav-link menu-link pl-0" href="#">Наш коллектив</a>
+                          </li>
+                    </ul>
+              </li>
+            <li class="nav-item" style="border-bottom: 2px solid rgba(255,255,255,0.2); padding-bottom: 4%">
+                <a class="nav-link menu-link text-uppercase" href="{% url 'backstage' %}">Backstage</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script>
+function toggleSubmenu() {
+    const submenu = document.querySelector('.submenu');
+    const moreMenuIcon = document.getElementById('moreMenuIcon');
+    const lessMenuIcon = document.getElementById('lessMenuIcon');
+    const navLink = document.querySelector('span.nav-link');
+
+    submenu.classList.toggle('show');
+    moreMenuIcon.classList.toggle('d-none');
+    lessMenuIcon.classList.toggle('d-none');
+
+    if (submenu.classList.contains('show')) {
+        navLink.classList.add('active-submenu');
+        navLink.classList.remove('inactive-submenu');
+    } else {
+        navLink.classList.remove('active-submenu');
+        navLink.classList.add('inactive-submenu');
+    }
+}
+function toggleMenuText(open) {
+    const menuButton = document.getElementById('menu');
+    const fullScreenMenu = document.getElementById('fullScreenMenu');
+
+    if (open) {
+        // Open the menu
+        menuButton.innerHTML = '✕';
+        fullScreenMenu.style.transform = 'translateX(0)';
+        menuButton.setAttribute('data-open', 'true');
+    } else {
+        // Close the menu
+        menuButton.innerHTML = '<img src="{% static 'img/menu.png' %}" style="width: 70px;">';
+        fullScreenMenu.style.transform = 'translateX(100%)';
+        menuButton.setAttribute('data-open', 'false');
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Обработчик события для кнопки меню
+    document.getElementById('menu').addEventListener('click', function() {
+        const fullScreenMenu = document.getElementById('fullScreenMenu');
+        if (!fullScreenMenu.classList.contains('open')) {
+            fullScreenMenu.classList.add('open');
+            toggleMenuText(true);
+        } else {
+            fullScreenMenu.classList.remove('open');
+            toggleMenuText(false);
+        }
+    });
+
+    // Обработчик для кнопки закрытия меню
+    document.getElementById('closeMenu').addEventListener('click', function() {
+        const fullScreenMenu = document.getElementById('fullScreenMenu');
+        fullScreenMenu.classList.remove('open');
+        toggleMenuText(false);
+    });
+});
+
+    // Обработчик для ссылки "АФИША" в полноэкранном меню
+    document.getElementById('performanceLinkFullScreen').addEventListener('click', function() {
+        const fullScreenMenu = document.getElementById('fullScreenMenu');
+        const navbarCollapse = document.getElementById('navbarSupportedContentFullScreen');
+        fullScreenMenu.classList.add('no-animation');
+        setTimeout(() => {
+            fullScreenMenu.classList.remove('no-animation'); // Удалить класс через некоторое время
+        }, 100);
+        fullScreenMenu.classList.remove('open');
+        navbarCollapse.classList.remove('show');
+        toggleMenuText();
+    });
+
+    // Обработчик для ссылки "АФИША" в десктопном меню
+    document.getElementById('performanceLink').addEventListener('click', function() {
+        const fullScreenMenu = document.getElementById('fullScreenMenu');
+        const navbarCollapse = document.getElementById('navbarSupportedContent');
+        fullScreenMenu.classList.remove('open');
+        navbarCollapse.classList.remove('show');
+        toggleMenuText();
+    });
+
+    function updatePerformanceLink() {
+        const performanceLink = document.getElementById('performanceLink');
+        const linkFullScreen = document.getElementById('performanceLinkFullScreen');
+        const screenWidth = window.innerWidth;
+
+        if (screenWidth > 1200) {
+            performanceLink.href = "{% url 'index' %}#performanceCarouselDesktop";
+            linkFullScreen.href = "{% url 'index' %}#performanceCarouselDesktop";
+        } else if (screenWidth >= 992 && screenWidth <= 1200) {
+            performanceLink.href = "{% url 'index' %}#performanceCarouselTablet";
+            linkFullScreen.href = "{% url 'index' %}#performanceCarouselTablet";
+        } else {
+            performanceLink.href = "{% url 'index' %}#performanceCarouselPhone";
+            linkFullScreen.href = "{% url 'index' %}#performanceCarouselPhone";
+        }
+    }
+
+    // Update the link on initial load
+    updatePerformanceLink();
+
+    // Update the link when the window is resized
+    window.addEventListener('resize', updatePerformanceLink);
+    window.addEventListener('orientationchange', updatePerformanceLink);
+</script>

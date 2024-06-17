@@ -1,0 +1,344 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<style>
+.text-b18f5a {
+    color: #bf9b64;
+}
+
+.text-9c7f53 {
+    color: #bf9b64;
+}
+
+.a-border {
+    position: relative;
+}
+.a-border::after {
+    content: "";
+    position: absolute;
+    bottom: -2px; /* Располагаем рамку немного ниже кнопки */
+    left: 0;
+    width: calc(100% - 40%); /* Ширина рамки - чуть больше ширины текста кнопки */
+    margin-left: 20%;
+    height: 0.4px; /* Толщина рамки */
+    background-color: rgba(0, 0, 0, 0.58); /* Цвет рамки */
+    transition: width 0.3s ease, margin-left 0.3s ease, height 0.3s ease;;
+}
+.a-border:hover::after {
+    width: 100%; /* Увеличиваем ширину рамки при наведении */
+    margin-left: 0;
+}
+.a-border:hover::before {
+    height: calc(100% - 60px); /* Увеличиваем высоту рамки при наведении на кнопку */
+    top: 0; /* Перемещаем рамку вверх */
+}
+
+.a-border:hover button {
+    color: #a88756;
+}
+
+@media (min-width: 576px) {
+    .aaa {
+        margin-top: 12% !important;
+    }
+    h2 {
+        font-size: 2.8em;
+    }
+    h4 {
+        font-size: 2.1rem;
+        max-width: 40vw;
+        text-align: center;
+        padding-right: 0 !important;
+    }
+    .post-title {
+        font-size: 2.4rem;
+        letter-spacing: .2px;
+    }
+    .post-content {
+        font-size: 1.8rem;
+    }
+    .small {
+        font-size: 1.9rem;
+         bottom: -2.7rem;
+    }
+    .aaa {
+        display: block;
+        align-items: center;
+    }
+    .post-image {
+        height: 550px;
+    }
+    #num {
+        font-size: 2.2rem;
+    }
+    #prevnext {
+        width: 38px;
+    }
+    #mobile-header {
+        box-shadow: 1px 1px 12px 1px rgba(0, 0, 0, 0.11);
+    }
+    #more_info{
+        font-size: 2rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .aaa {
+        margin-top: 12% !important;
+    }
+    h2 {
+        font-size: 2.8em;
+    }
+    h4 {
+        font-size: 2.1rem;
+        max-width: 40vw;
+        text-align: center;
+        padding-right: 0 !important;
+    }
+    .post-title {
+        font-size: 2.4rem;
+        letter-spacing: .2px;
+    }
+    .post-content {
+        font-size: 1.8rem;
+    }
+    .small {
+        font-size: 1.9rem;
+         bottom: -2.7rem;
+    }
+    .aaa {
+        display: block;
+        align-items: center;
+    }
+    .post-image {
+        height: 550px;
+    }
+    #num {
+        font-size: 2.2rem;
+    }
+    #prevnext {
+        width: 38px;
+    }
+    #mobile-header {
+        box-shadow: 1px 1px 12px 1px rgba(0, 0, 0, 0.11);
+    }
+    #more_info{
+        font-size: 2rem;
+    }
+    #chooseОпера{
+        font-size: 2.4rem;
+        text-decoration: none;
+        color: black;
+    }
+    #chooseБалет{
+        font-size: 2.4rem;
+        text-decoration: none;
+        color: black;
+    }
+}
+
+@media (min-width: 992px) {
+    .aaa {
+        margin-top: 1.8% !important;
+    }
+    h2 {
+        font-size: 2rem;
+    }
+    h4 {
+        font-size: 1.6rem;
+    }
+    .post-title {
+        font-size: 1.4rem;
+    }
+    .post-content {
+        font-size: 1rem;
+    }
+    .small {
+        font-size: 1rem;
+         bottom: -1.9rem;
+    }
+    .post-image {
+        height: 300px;
+    }
+    #prevnext {
+        width: 22px;
+    }
+    #num {
+        font-size: 1.1rem;
+    }
+    #more_info{
+        font-size: 1.1rem;
+    }
+    #chooseОпера{
+        font-size: 1.4rem;
+        text-decoration: none;
+        color: black;
+    }
+    #chooseБалет{
+        font-size: 1.4rem;
+        text-decoration: none;
+        color: black;
+    }
+}
+
+@media (min-width: 1200px) {
+    .aaa{
+        margin-top: 2.3% !important;
+    }
+    h2 {
+        font-size: 2rem;
+    }
+    h4 {
+        font-size: 1.7rem;
+    }
+    .post-title {
+        font-size: 1.3rem;
+    }
+    .post-content {
+        font-size: 1rem;
+    }
+    .small {
+        font-size: 1rem;
+         bottom: -1.9rem;
+    }
+    .post-image {
+        height: 35vh;
+    }
+    #num {
+        font-size: 1.3rem;
+    }
+    #prevnext {
+        width: 21px;
+    }
+    #more_info{
+        font-size: 1.1rem;
+    }
+    #chooseОпера{
+        font-size: 1.5rem;
+        text-decoration: none;
+        color: black;
+    }
+    #chooseБалет{
+        font-size: 1.5rem;
+        text-decoration: none;
+        color: black;
+    }
+}
+.chooses a.selected {
+    color: #bf9b64 !important;
+}
+#more_info{
+    background-color: white;
+    border: none;
+}
+#more_info:focus{
+    outline: none;
+    box-shadow: none;
+}
+</style>
+
+
+<div style="background-color: white; box-shadow: 1px 1px 12px 1px rgba(0,0,0,0.11)">
+    {% include 'header.html' %}
+</div>
+
+<div class="aaa mt-4 d-flex justify-content-between align-items-center container" id="change">
+    <h2 class="text-uppercase mb-1 pr-3" style="background-color: white; color: #bf9b64; margin-bottom: 6px !important;">Репертуар</h2>
+        <div class="chooses d-flex" style="background-color: white; margin-bottom: 4px">
+            <a href="#" onclick="filterPerformances('Опера')" id="chooseОпера" class="pl-4 mr-3 text-uppercase">Опера</a>
+            <div style="border-right: 2px solid black; position: relative"></div>
+            <a href="#" onclick="filterPerformances('Балет')" id="chooseБалет" class="pr-4 ml-3 text-uppercase">Балет</a>
+        </div>
+    <div class="container" id="change2" style="position: absolute; width: 100%; border-bottom: 1px solid black; z-index: -1"></div>
+</div>
+
+<div class="container">
+    <div class="row mt-3">
+        {% for performance in performances %}
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 mt-4 mb-4">
+                <div class="post d-flex flex-column h-100 position-relative" style="border-radius: 0px; border: 0px solid rgba(0,0,0,0.14); position: relative;">
+                    <div class="post-image" style="background-image: url('{{ performance.image.url }}'); background-size: cover; background-position: 50%; border-radius: 0px;"></div>
+                    <div class="post-content mt-3 mb-2 flex-grow-1" style="background-color: white; display: flex; flex-direction: column; justify-content: flex-start;">
+                        <h5 class="post-title text-uppercase font-weight-bold text-b18f5a">{{ performance.repertory_name }}</h5>
+                        {% if performance.author %}
+                            <p class="post-text mt-2" style="font-weight: 500">{{ performance.author }}</p>
+                        {% endif %}
+                        <p class="post-text" style="margin-top: -5px;">{{ performance.repertory_description|linebreaks }}</p>
+                        <a href="{% url 'repertory_detail' performance_pk=performance.id %}" class="text-decoration-none a-border">
+                            <button id="more_info" style="width: 100%">Подробнее</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    function filterPerformances(type) {
+        window.location.href = "{% url 'repertory' %}?type=" + type;
+    }
+
+    function adjustContainerClass() {
+        const container = document.getElementById('change');
+        const container2 = document.getElementById('change2')
+
+        if (window.innerWidth < 992) {
+            container.classList.remove('container');
+            container.classList.add('container-fluid');
+            container2.classList.remove('container');
+            container2.classList.add('container-fluid');
+        } else {
+            container.classList.add('container');
+            container.classList.remove('container-fluid');
+            container2.classList.add('container');
+            container2.classList.remove('container-fluid');
+        }
+    }
+
+    window.addEventListener('load', function() {
+        function setCardHeights() {
+            var rows = document.querySelectorAll('.row.mt-3');
+
+            rows.forEach(function(row) {
+                var cards = row.querySelectorAll('.post');
+
+                var maxHeight = 0;
+                cards.forEach(function(card) {
+                    maxHeight = Math.max(maxHeight, card.offsetHeight);
+                });
+
+                cards.forEach(function(card) {
+                    card.style.height = maxHeight + 'px';
+                });
+            });
+        }
+
+        function highlightActiveLink() {
+            const params = new URLSearchParams(window.location.search);
+            const type = params.get('type');
+
+            document.querySelectorAll('.chooses a').forEach(function(element) {
+                element.classList.remove('selected');
+            });
+
+            document.getElementById('choose' + type).classList.add('selected');
+        }
+
+        setCardHeights();
+        adjustContainerClass();
+        highlightActiveLink();
+
+        window.addEventListener('resize', function() {
+            setCardHeights();
+            adjustContainerClass();
+        });
+    });
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% endblock %}

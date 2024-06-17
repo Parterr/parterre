@@ -1,0 +1,421 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .carousel {
+        width: 100%;
+        margin: auto;
+        padding: 0;
+    }
+    .carousel-inner {
+        margin: 0;
+    }
+    .carousel-item {
+        max-height: 100vh;
+        overflow: hidden;
+        top: 0;
+    }
+    .carousel-item img {
+        top: 0;
+        width: auto;
+        max-height: 100%;
+        max-width: 100%;
+    }
+    .performance-carousel {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    .performance-carousel-inner {
+        margin: 0;
+        background-color: #1a1a1a;
+    }
+    .performance-carousel-item {
+        max-height: 100vh;
+        color: white;
+    }
+    .carousel-control-prev,
+    .carousel-control-next {
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .custom-carousel-control {
+        background-color: black;
+        height: 9%;
+        width: 4%;
+        transition: background-color 0.3s ease;
+    }
+    .custom-carousel-control:hover {
+        background-color: #dbb071;
+    }
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-color: transparent;
+    }
+    @media (min-width: 576px) {
+        #mobile-header{
+            box-shadow: 1px 1px 12px 1px rgba(0,0,0,0.11);
+        }
+        #title {
+            font-size: 2.8rem;
+        }
+        #date {
+            font-size: 2.5rem;
+        }
+        #desc {
+            font-size: 2.2rem;
+            letter-spacing: 0.2px;
+        }
+        #aff{
+            font-size: 2.6rem;
+        }
+        h3{
+            font-size: 2.6rem;
+        }
+    }
+    @media (min-width: 768px) {
+        #mobile-header{
+            box-shadow: 1px 1px 12px 1px rgba(0,0,0,0.11);
+        }
+        #title {
+            font-size: 2.8rem;
+        }
+        #date {
+            font-size: 2.5rem;
+        }
+        #desc {
+            font-size: 2.2rem;
+            letter-spacing: 0.2px;
+        }
+        #aff{
+            font-size: 2.6rem;
+        }
+        h3{
+            font-size: 2.6rem;
+        }
+    }
+    @media (min-width: 992px) {
+        #title {
+            font-size: 1.7rem;
+        }
+        #date {
+            font-size: 1.4rem;
+        }
+        #desc {
+            font-size: 1rem;
+            letter-spacing: 0.2px;
+        }
+        #aff{
+            font-size: 1.8rem;
+        }
+        h3{
+            font-size: 1.5rem;
+        }
+        .for_btn {
+            position: absolute;
+            right: 0;
+            display: flex;
+        }
+
+        .carousel-control-prev, .carousel-control-next {
+            position: static;
+            margin: 5px 0;
+        }
+
+        .carousel-control-prev {
+            order: 1;
+        }
+
+        .carousel-control-next {
+            order: 2;
+        }
+    }
+    @media (min-width: 1200px) {
+        #title {
+            font-size: 1.7rem;
+        }
+        #desc {
+            font-size: 1rem;
+            letter-spacing: 0.3px;
+        }
+        #date {
+            font-size: 1.2rem;
+        }
+        #aff {
+            font-size: 1.7rem;
+        }
+        .carousel-control-prev, .carousel-control-next {
+            position: absolute;
+            opacity: .5;
+        }
+        .carousel-control-prev {
+            order: 1;
+        }
+        .carousel-control-next {
+            order: 2;
+        }
+    }
+    @media (max-width: 767.98px) {
+        .carousel-item .row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .carousel-item .col-lg-5 {
+            order: 3;
+            text-align: center;
+        }
+        .carousel-item .col-lg-7 {
+            order: 2;
+        }
+        .carousel-item .info {
+            order: 4;
+            text-align: center;
+        }
+        .carousel-item #aff {
+            order: 1;
+            text-align: right;
+            width: 100%;
+            padding-right: 10px;
+        }
+        .carousel-item .btn {
+            order: 5;
+            text-align: left;
+            width: 100%;
+            padding-left: 10px;
+        }
+        .carousel-controls-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+    }
+</style>
+
+
+{% include 'header.html' %}
+
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="5000">
+    <div class="carousel-inner">
+        {% for image in images %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <img id="main_img" src="{{ image.main_image.url }}" alt="{{ image.title }}" class="d-block w-100 img-fluid" style="object-fit: cover; height: 650px">
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<h3 class="text-center font-weight-bold m-5">КАЗАХСКИЙ НАЦИОНАЛЬНЫЙ ТЕАТР ОПЕРЫ И БАЛЕТА ИМЕНИ АБАЯ</h3>
+
+<!-- Карусель для компьютеров -->
+<div id="performanceCarouselDesktop" class="carousel slide mt-5 mb-5 d-none" data-ride="carousel">
+    <div class="carousel-inner performance-carousel-inner">
+        {% for performance in performances %}
+            <div class="carousel-item performance-carousel-item {% if forloop.first %}active{% endif %}">
+                <div class="row">
+                    <div class="col-lg-5 col-md-12 d-flex flex-column order-md-1 justify-content-center">
+                        <p id="aff" class="mx-5 mt-4 mb-4 text-uppercase pl-5 font-weight-bold">Афиша</p>
+                        <div class="info mx-5 mt-0 mb-5 pl-5 d-flex flex-column justify-content-center" style="flex-grow: 1;">
+                            <p id="title" class="text-uppercase font-weight-bold">{{ performance.title }}</p>
+                            <p id="date" >{{ performance.datetime1|date:"d/m - H:i" }}
+                            {% if performance.datetime2 %}
+                                , {{ performance.datetime2|date:"d/m - H:i" }}
+                            {% endif %}</p>
+                            <p id="desc" >{{ performance.subtitle }}</p>
+                            <a href="{% url 'performance_detail' performance.id %}" class="btn mt-2" style="background-color: #dbb071; color: black; padding: 7px 18px; border: none; border-radius: 0px; max-width: 40%">Подробнее</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-12 p-0 m-0 order-md-2 d-flex justify-content-center">
+                        <img src="{{ performance.image.url }}" alt="{{ performance.title }}" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <a class="carousel-control-prev custom-carousel-control" href="#performanceCarouselDesktop" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next custom-carousel-control" href="#performanceCarouselDesktop" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+<!-- Карусель для телефонов -->
+<div id="performanceCarouselPhone" class="carousel slide d-lg-none" data-ride="carousel" >
+    <div class="carousel-inner performance-carousel-inner">
+        {% for performance in performances %}
+            <div class="carousel-item performance-carousel-item {% if forloop.first %}active{% endif %}"  style="min-height: 1750px">
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-between align-items-center">
+                        <p id="aff" class="my-4 mx-5 text-uppercase font-weight-bold">Афиша</p>
+                    </div>
+                    <div class="col-12 p-0 m-0">
+                        <img src="{{ performance.image.url }}" alt="{{ performance.title }}" class="img-fluid">
+                    </div>
+                    <div class="col-12 d-flex flex-column align-items-center">
+                        <div class="info text-center">
+                            <p id="title" class="my-4 text-uppercase font-weight-bold">{{ performance.title }}</p>
+                            <p id="date" class="my-4">{{ performance.datetime1|date:"d/m - H:i" }}
+                                {% if performance.datetime2 %}
+                                    , {{ performance.datetime2|date:"d/m - H:i" }}
+                                {% endif %}
+                            </p>
+                            <p id="desc" class="my-4 pl-3 pr-3">{{ performance.subtitle }}</p>
+                            <a href="{% url 'performance_detail' performance.id %}" class="btn mt-1 mb-5" style="background-color: #dbb071; color: black; padding: 7px 18px; border: none; border-radius: 0px; width: 90%; font-size: 2.2rem">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+    <!-- Карусель для планшетов -->
+<div id="performanceCarouselTablet" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner performance-carousel-inner">
+        {% for performance in performances %}
+             <div class="carousel-item performance-carousel-item {% if forloop.first %}active{% endif %}">
+                <div class="row align-items-center">
+                    <div class="col-5 ml-3 mr-5">
+                        <p id="aff" class="mx-2 my-4 text-uppercase font-weight-bold">Афиша</p>
+                    </div>
+                    <div class="col-12">
+                        <div class="info mx-4 my-0 d-flex justify-content-between">
+                            <div>
+                                <p id="title" class="text-uppercase font-weight-bold">{{ performance.title }}</p>
+                            </div>
+                            <div>
+                                <p id="date" class="font-weight-bold">{{ performance.datetime1|date:"d/m - H:i" }}
+                                    {% if performance.datetime2 %}
+                                        , {{ performance.datetime2|date:"d/m - H:i" }}
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 d-flex flex-column align-items-center order-2 order-md-1">
+                        <div class="info pl-4">
+                            <p id="desc">{{ performance.subtitle }}</p>
+                            <a href="{% url 'performance_detail' performance.id %}" class="btn mt-1 mb-0" style="background-color: #dbb071; color: black; padding: 7px 18px; border: none; border-radius: 0px; width: 98%; font-size: 1.1rem">Подробнее</a>
+                        </div>
+                    </div>
+                    <div class="col-md-7 p-0 m-0 order-1 order-md-2">
+                        <img src="{{ performance.image.url }}" alt="{{ performance.title }}" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="for_btn" style="position: absolute; top: 8%; right: 0; width: 16%; margin-right: 1%">
+            <a class="carousel-control-prev" href="#performanceCarouselTablet" role="button" data-slide="prev" style="width: 100%; opacity: 10">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#performanceCarouselTablet" role="button" data-slide="next" style="width: 100%; opacity: 10">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Функция для проверки и управления видимостью карусели для планшетов
+        function toggleTabletCarousel() {
+            // Получаем текущую ширину экрана
+            var screenWidth = window.innerWidth;
+
+            // Если ширина экрана находится в диапазоне от 992 до 1200 пикселей, показываем карусель для планшетов
+            if (screenWidth > 992 && screenWidth < 1200) {
+                document.getElementById('performanceCarouselTablet').classList.add('d-block');
+                document.getElementById('performanceCarouselTablet').classList.remove('d-none');
+            } else {
+                // В противном случае, скрываем карусель для планшетов
+                document.getElementById('performanceCarouselTablet').classList.remove('d-block');
+                document.getElementById('performanceCarouselTablet').classList.add('d-none');
+            }
+        }
+
+        // Функция для проверки и управления видимостью карусели для компьютеров
+        function toggleDesktopCarousel() {
+            // Получаем текущую ширину экрана
+            var screenWidth = window.innerWidth;
+
+            // Если ширина экрана больше 1200 пикселей, показываем карусель для компьютеров
+            if (screenWidth > 1200) {
+                document.getElementById('performanceCarouselDesktop').classList.add('d-block');
+                document.getElementById('performanceCarouselDesktop').classList.remove('d-none');
+            } else {
+                // В противном случае, скрываем карусель для компьютеров
+                document.getElementById('performanceCarouselDesktop').classList.remove('d-block');
+                document.getElementById('performanceCarouselDesktop').classList.add('d-none');
+            }
+        }
+
+        // Вызываем функции при загрузке страницы
+        toggleTabletCarousel();
+        toggleDesktopCarousel();
+
+        // Добавляем обработчики событий изменения размера окна для периодической проверки размера экрана
+        window.addEventListener('resize', function () {
+            toggleTabletCarousel();
+            toggleDesktopCarousel();
+        });
+        // Получаем элементы каруселей
+        var tabletCarousel = document.getElementById('performanceCarouselTablet');
+        var phoneCarousel = document.getElementById('performanceCarouselPhone');
+
+        // Объявляем переменные для хранения координат касания на телефонах
+        var touchStartX = 0;
+        var touchEndX = 0;
+        var touchMoved = false;
+
+        // Добавляем обработчики событий касания для карусели на телефонах
+        phoneCarousel.addEventListener('touchstart', function (event) {
+            touchStartX = event.changedTouches[0].screenX;
+            touchMoved = false; // Сбрасываем флаг при начале касания
+        });
+
+        phoneCarousel.addEventListener('touchmove', function (event) {
+            touchMoved = true; // Устанавливаем флаг при движении пальца
+            touchEndX = event.changedTouches[0].screenX;
+        });
+
+        phoneCarousel.addEventListener('touchend', function (event) {
+            if (!touchMoved) {
+                // Если палец не двигался между touchstart и touchend, это обычный клик
+                console.log("Обычный клик на телефоне");
+                // Здесь можно добавить любое дополнительное действие, которое должно выполняться при обычном клике
+            } else {
+                // Если палец двигался, рассчитываем смещение и решаем, был ли это свайп
+                var deltaX = touchEndX - touchStartX;
+                if (deltaX > 50) {
+                    $(phoneCarousel).carousel('prev'); // Свайп вправо
+                } else if (deltaX < -50) {
+                    $(phoneCarousel).carousel('next'); // Свайп влево
+                }
+            }
+        });
+
+        // Инициализируем Hammer.js для обработки событий касания на планшетах
+        var tabletHammer = new Hammer(tabletCarousel);
+
+        // Обрабатываем свайпы влево и вправо для пролистывания карусели на планшетах
+        tabletHammer.on('swipeleft', function () {
+            $(tabletCarousel).carousel('next');
+        });
+
+        tabletHammer.on('swiperight', function () {
+            $(tabletCarousel).carousel('prev');
+        });
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+{% endblock %}

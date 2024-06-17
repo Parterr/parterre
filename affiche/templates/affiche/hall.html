@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .container {
+        border: 1px solid #f3e9d2;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .seat {
+        cursor: pointer;
+    }
+    .footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        color: azure;
+        padding: 10px;
+        border-top: 4px solid #a88756;
+        display: none;
+        background-color: #1a1a1a;
+    }
+    .reserved {
+        background-color: #4e4e4e;
+        border: 1px solid #a88756;
+        color: rgba(221, 221, 221, 0.5);
+    }
+    .available {
+        background-color: #dddddd;
+        color: rgba(26, 26, 26, 0.5);
+        border: 1px solid #a88756;
+    }
+    .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+    }
+    .loading-text {
+        color: white;
+        font-size: 2rem;
+    }
+    #seat:hover{
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+</style>
+
+<div style="background-color: white; box-shadow: 1px 1px 12px 1px rgba(0,0,0,0.11)">
+    {% include 'header.html' %}
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            {% for row in rows %}
+            <div class="row-divider">
+                <div class="row mb-3">
+                    <div class="col-3">Ряд {{ row.number }}</div>
+                    <div class="col-12">
+                        <div class="row">
+                            {% for seat in row.seat_set.all %}
+                            <div id="seat" class="col-1">
+                                <div class="seat {% if seat.is_reserved %}reserved{% else %}available{% endif %} text-center p-0"
+                                     data-seat-id="{{ seat.id }}"
+                                     data-row-number="{{ row.number }}"
+                                     data-seat-number="{{ seat.number }}"
+                                     data-show-name="{{ performance.title }}"
+                                     data-show-date="{{ performance.datetime1|date:'d.m.Y' }}"
+                                     data-ticket-price="{{ seat.price }}">
+                                    {{ seat.number }}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="footer" id="seatFooter">
+    <div class="row">
+        <div class="col-md-2 mt-1"><strong style="color: #dbb071; font-size: 1.5rem" id="footerShowName"></strong></div>
+        <div class="col-md-3 mt-4"><strong style="color: #a88756;">Дата представления:</strong>&nbsp;<span id="footerShowDate"></span></div>
+        <div class="col-md-2 mt-4"><strong>10000тг</strong>&nbsp;<span id="footerTicketPrice"></span></div>
+        <div class="col-md-2 mt-4"><strong style="color: #a88756;">Ряд:</strong>&nbsp;<span id="footerRowNumber"></span></div>
+        <div class="col-md-1 mt-4"><strong style="color: #a88756;">Место:</strong>&nbsp;<span id="footerSeatNumber"></span></div>
+        <div class="col-md-2 text-right mt-3">
+            <a id="actionButton" class="btn" style="background-color: #dbb071; color: black; padding: 7px 18px; border: none; border-radius: 0px; width: 98%; font-size: 1.1rem">Купить билет</a>
+        </div>
+    </div>
+</div>
+
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-text">Происходит транзакция...</div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let selectedSeat = null;
+
+        document.querySelectorAll('.seat').forEach(function(seat) {
+            seat.addEventListener('click', function() {
+                selectedSeat = seat;
+                var showName = seat.getAttribute('data-show-name');
+                var showDate = seat.getAttribute('data-show-date');
+                var ticketPrice = seat.getAttribute('data-ticket-price');
+                var rowNumber = seat.getAttribute('data-row-number');
+                var seatNumber = seat.getAttribute('data-seat-number');
+
+                document.getElementById('footerShowName').textContent = showName;
+                document.getElementById('footerShowDate').textContent = showDate;
+                document.getElementById('footerTicketPrice').textContent = ticketPrice;
+                document.getElementById('footerRowNumber').textContent = rowNumber;
+                document.getElementById('footerSeatNumber').textContent = seatNumber;
+
+                document.getElementById('seatFooter').style.display = 'block';
+            });
+        });
+
+        document.getElementById('actionButton').addEventListener('click', function() {
+            if (selectedSeat) {
+                document.getElementById('loadingOverlay').style.display = 'flex';
+
+                setTimeout(function() {
+                    selectedSeat.classList.remove('available');
+                    selectedSeat.classList.add('reserved');
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                    document.getElementById('seatFooter').style.display = 'none';
+                }, 2000); // Simulating a 2-second transaction delay
+            }
+        });
+    });
+    $('#actionButton').click(function() {
+        // Получить ID места
+        var seatId = $('#footerSeatNumber').text();
+
+        // Отправить AJAX-запрос
+        $.ajax({
+          url: '/hall/',
+          method: 'POST',
+          data: {
+            seat_id: seatId
+          },
+          success: function(response) {
+            // Обновить HTML-элементы
+            $('#actionButton').css('background-color', 'red');
+            $('#actionButton').text('Место занято');
+            $('#actionButton').hide();
+          }
+        });
+      });
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% endblock %}

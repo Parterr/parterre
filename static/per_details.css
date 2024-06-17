@@ -1,0 +1,19 @@
+.performance-item {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #1a1a1a;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.performance-item .details {
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.pr-0 {
+    padding-right: 0 !important;
+}

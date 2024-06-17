@@ -1,0 +1,742 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'slick/slick.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'slick/slick-theme.css' %}"/>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<style>
+    @media (min-width: 576px) {
+        #name {
+            font-size: 2.8rem;
+            color: #bf9b64;
+        }
+        #yes {
+            margin-top: 14% !important;
+        }
+        #back {
+            display: none !important;
+        }
+        #mobile-header {
+            box-shadow: 1px 1px 12px 1px rgba(0, 0, 0, 0.11);
+        }
+        .prev, .next {
+            width: 7% !important;
+        }
+        .prev {
+            left: -13px;
+        }
+        .next {
+            right: -5px;
+        }
+        .more-info{
+            width: 80px;
+        }
+        #more_info{
+            position: absolute;
+            z-index: 22222;
+        }
+        .less-info{
+            width: 80px;
+        }
+        #less_info{
+            position: absolute;
+            z-index: 2222;
+            right: 0;
+            top: 0;
+        }
+        .info-overlay{
+            padding-bottom: 3%;
+        }
+        #title{
+            font-size: 2rem;
+            color: #dbb071;
+            padding-top: 5px
+        }
+        #dop_info{
+            font-size: 1.8rem;
+        }
+        #dur{
+            font-size: 1.9rem;
+        }
+        #for_roles{
+            font-size: 1.9rem;
+            color: #dbb071;
+        }
+        #roles{
+            font-size: 1.8rem;
+        }
+        #dop_roles{
+            font-size: 1.8rem;
+        }
+        #for_creatives{
+            font-size: 1.9rem;
+            color: #dbb071;
+        }
+        #creative{
+            font-size: 1.8rem;
+            color: #dbb071;
+        }
+        #creative_name{
+            font-size: 1.8rem;
+            padding-bottom: 10px;
+        }
+        #acts::before {
+            height: 7%;
+            top: 12.6%;
+        }
+        #acts::after {
+            height: 7%;
+            bottom: 5.8%;
+        }
+        #for_acts{
+            background-color: white;
+            border: none;
+            outline: none;
+            font-size: 2.3rem;
+            font-weight: 600;
+        }
+        #acts{
+            height: 700px;
+            width: 850px;
+            font-size: 2.2rem;
+        }
+        #container4{
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (min-width: 768px) {
+        #name {
+            font-size: 2.8rem;
+            color: #bf9b64;
+        }
+        #yes {
+            margin-top: 14% !important;
+        }
+        #back {
+            display: none !important;
+        }
+        #mobile-header {
+            box-shadow: 1px 1px 12px 1px rgba(0, 0, 0, 0.11);
+        }
+        .prev, .next {
+            width: 6% !important;
+        }
+        .prev {
+            left: -13px;
+        }
+        .next {
+            right: -5px;
+        }
+        .more-info{
+            width: 80px;
+        }
+        #more_info{
+            position: absolute;
+            z-index: 22222;
+        }
+        .less-info{
+            width: 80px;
+        }
+        #less_info{
+            position: absolute;
+            z-index: 2222;
+            right: 0;
+            top: 0;
+        }
+        .info-overlay{
+            padding-bottom: 3%;
+        }
+        #title{
+            font-size: 2.3rem;
+            color: #dbb071;
+            padding-top: 5px
+        }
+        #dop_info{
+            font-size: 2.1rem;
+        }
+        #dur{
+            font-size: 2.3rem;
+        }
+        #for_roles{
+            font-size: 2.3rem;
+            color: #dbb071;
+        }
+        #roles{
+            font-size: 2.1rem;
+        }
+        #dop_roles{
+            font-size: 2.1rem;
+        }
+        #for_creatives{
+            font-size: 2.3rem;
+            color: #dbb071;
+        }
+        #creative{
+            font-size: 2.1rem;
+            color: #dbb071;
+        }
+        #creative_name{
+            font-size: 2.1rem;
+            padding-bottom: 10px;
+        }
+        #acts::before {
+            height: 7%;
+            top: 12.4%;
+        }
+        #acts::after {
+            height: 7%;
+            bottom: 5.8%;
+        }
+        #for_acts{
+            background-color: white;
+            border: none;
+            outline: none;
+            font-size: 2.3rem;
+            font-weight: 600;
+        }
+        #acts{
+            height: 700px;
+            width: 850px;
+            font-size: 2.2rem;
+        }
+        #container4{
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (min-width: 992px) {
+        #name {
+            font-size: 1.7rem;
+            color: #bf9b64;
+        }
+        #yes {
+            margin-top: 5% !important;
+        }
+        #back {
+            display: flex !important;
+        }
+        .prev, .next {
+            width: 4% !important;
+        }
+        .prev {
+            left: -5px;
+        }
+        .next {
+            right: 5px;
+        }
+        .more-info{
+            width: 60px;
+        }
+        #more_info{
+            position: absolute;
+            z-index: 22222;
+        }
+        .less-info{
+            width: 60px;
+        }
+        #less_info{
+            position: absolute;
+            z-index: 2222;
+            right: 0;
+            top: 0;
+        }
+        .info-overlay{
+            padding-bottom: 3%;
+        }
+        #title{
+            font-size: 1.25rem;
+            color: #dbb071;
+            padding-top: 5px
+        }
+        #dop_info{
+            font-size: 1rem;
+        }
+        #dur{
+            font-size: 1.1rem;
+        }
+        #for_roles{
+            font-size: 1.2rem;
+            color: #dbb071;
+        }
+        #roles{
+            font-size: 1rem;
+        }
+        #dop_roles{
+            font-size: 1rem;
+        }
+        #for_creatives{
+            font-size: 1.2rem;
+            color: #dbb071;
+        }
+        #creative{
+            font-size: 1rem;
+            color: #dbb071;
+        }
+        #creative_name{
+            font-size: 1rem;
+            padding-bottom: 10px;
+        }
+        #for_acts{
+            background-color: white;
+            border: none;
+            outline: none;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+        #acts{
+            height: 500px;
+            width: 850px;
+            font-size: 1.1rem;
+        }
+        #acts::before {
+            height: 11%; /* Высота псевдоэлемента */
+            top: 13.5%;
+        }
+        #acts::after {
+            height: 11%; /* Высота псевдоэлемента */
+            bottom: 8%;
+        }
+        #container4{
+            font-size: 1.1rem;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        #name {
+            font-size: 2rem;
+            color: #bf9b64;
+        }
+        #yes {
+            margin-top: 4% !important;
+        }
+        #back {
+            display: flex !important;
+        }
+        .prev, .next {
+            width: 3.5% !important;
+        }
+
+        .prev {
+            left: -8px;
+        }
+        .next {
+            right: 2px;
+        }
+        .more-info{
+            width: 60px;
+        }
+        #more_info{
+            position: absolute;
+            z-index: 2222;
+        }
+        .less-info{
+            width: 60px;
+        }
+        #less_info{
+            position: absolute;
+            z-index: 2222;
+            right: 0;
+            top: 0;
+        }
+        .info-overlay{
+            padding-bottom: 3%;
+        }
+        #title{
+            font-size: 1.5rem;
+            color: #dbb071;
+        }
+        #dop_info{
+            font-size: 1.1rem;
+        }
+        #dur{
+            font-size: 1.3rem;
+        }
+        #for_roles{
+            font-size: 1.3rem;
+            color: #dbb071;
+        }
+        #roles{
+            font-size: 1.1rem;
+        }
+        #dop_roles{
+            font-size: 1.1rem;
+        }
+        #for_creatives{
+            font-size: 1.3rem;
+            color: #dbb071;
+        }
+        #creative{
+            font-size: 1.1rem;
+            color: #dbb071;
+        }
+        #creative_name{
+            font-size: 1.1rem;
+            padding-bottom: 10px;
+        }
+        #for_acts{
+            background-color: white;
+            border: none;
+            outline: none;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+        #acts{
+            height: 500px;
+            width: 850px;
+            font-size: 1.1rem;
+        }
+        #acts::before {
+            height: 10%; /* Высота псевдоэлемента */
+            top: 13.6%;
+        }
+        #acts::after {
+            height: 11%; /* Высота псевдоэлемента */
+            bottom: 8%;
+        }
+        #container4{
+            font-size: 1.1rem;
+        }
+    }
+    .slick-slide {
+        height: auto;
+    }
+    .sl {
+        display: flex;
+        flex-wrap: wrap;
+        position: relative;
+        background-color: #1a1a1a;
+    }
+    .sl2 img {
+        margin: 10px 5px 10px 5px;
+    }
+    .sl2 {
+        transform: translate(0, -50%);
+        background-color: black;
+        z-index: 999;
+    }
+
+    .sl2::before,
+    .sl2::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 15%; /* Ширина затемнения, можно менять по необходимости */
+        pointer-events: none; /* Чтобы затемнение не блокировало клики */
+        z-index: 1;
+    }
+
+    .sl2::before {
+        left: 0;
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.94), transparent);
+    }
+
+    .sl2::after {
+        right: 0;
+        background: linear-gradient(to left, rgba(0, 0, 0, 0.94), transparent);
+    }
+    .info-overlay {
+        display: none;
+        position: absolute;
+        background-color: #1a1a1a;
+        z-index: 5;
+        color: white;
+        height: auto;
+        overflow-y: auto;
+        width: 0;
+        transition:  width 0.5s ease-in-out, height 0.5s ease-in-out;;
+    }
+    .info-overlay.show {
+        display: block;
+        width: auto;
+    }
+    .darkened img {
+        opacity: 0.2 !important;
+        color: #1a1a1a;
+    }
+    * {
+        box-sizing: border-box;
+    }
+    .background {
+        display: none;
+    }
+
+    .background.active {
+        display: block;
+    }
+    #acts{
+        border: 3px solid #dbb071;
+        overflow: auto;
+    }
+    #acts::before {
+        content: "";
+        display: block;
+        position: absolute; /* Относительное позиционирование */
+        width: 87%;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.94), transparent);
+    }
+    #acts::after {
+        content: "";
+        display: block;
+        position: absolute; /* Относительное позиционирование */
+        width: 87%;
+        background: linear-gradient(to top, rgba(255, 255, 255, 0.94), transparent);
+    }
+</style>
+<body>
+    <div style="background-color: white; box-shadow: 1px 1px 12px 1px rgba(0,0,0,0.11)">
+        {% include 'header.html' %}
+    </div>
+
+    <div class="container-fluid mt-5" id="yes">
+        <div class="border-bottom mb-5" style="border-color: #dbb071; position: relative;">
+            <h6 id="name" class="mr-2 mt-0 mb-0 pb-0 text-uppercase" style="background-color: white; padding: 1%; position: absolute; right: 0; bottom: -0.5em;">{{ performance.repertory_name }}</h6>
+            <a href="{% url 'repertory' %}" class="back-arrow d-flex pl-2 pr-3" id="back" style="position: absolute; left: 0; top: 50%; transform: translateY(-36%); color: black; text-decoration: none; background-color: white">
+                <p class="text-uppercase font-weight-bold ml-2" style="font-size: 1.4rem; position: relative; top: -0.4rem">&larr;</p><p class="text-uppercase font-weight-bold ml-2">
+                <p class="text-uppercase font-weight-bold ml-2">Репертуар</p>
+            </a>
+        </div>
+    </div>
+
+    <div class="container mb-4 mt-5" id="container1">
+        <a href="#" id="more_info" class="more_info">
+            <img src="{% static 'img/more_info.png' %}" class="more-info">
+        </a>
+        <div>
+            <div class="info-overlay">
+                <p id="title" class="mt-2 ml-3 font-weight-bold">{{ performance.title }}</p>
+                <a href="#" id="less_info" class="less_info ">
+                    <img src="{% static 'img/less_info.png'%}" class="less-info">
+                </a>
+                <div id="dop_info" class="ml-3 mr-3 mt-4">{{ performance.dop_info|linebreaks }}</div>
+                <div id="dur" class="ml-3 mr-3 mt-5"><p class="font-weight-bold" style="color:#dbb071">Продолжительность спектакля:</p><p>{{ performance.duration }}</p></div>
+                <p id="for_roles" class="ml-3 mr-3 mt-5 font-weight-bold">Действующие лица:</p>
+                {% for performer in performers %}
+                    <p id="roles" class="ml-3">{{ performer.role }}</p>
+                {% endfor %}
+                <p id="dop_roles" class="ml-3 mr-3 mt-4">Симфонический оркестр и балетная труппа Казахского национального театра оперы и балета имени Абая</p>
+                <p id="for_creatives" class="ml-3 mr-3 mt-5 font-weight-bold">Постановочная команда:</p>
+                {% for creative in creatives %}
+                    <p id="creative" class="ml-3 mr-3 mt-4">{{ creative.role }}<p id="creative_name" class="ml-3 mb-4"> {{ creative.name }}
+                    {% if creative.description %}
+                        , {{ creative.description }}
+                    {% endif %}
+                    </p>
+                {% endfor %}
+            </div>
+            <div class="sl" id="sl-block">
+                {% for image in performance.image_carousel.all %}
+                    <img src="{{ image.file.url }}" alt="Image" id="image-container">
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% if performance.image_carousel.all|length > 1 %}
+        <div class="container mb-0" id="container2">
+            <div class="sl2">
+                {% for image in performance.image_carousel.all %}
+                    <img src="{{ image.file.url }}" alt="Image">
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="container-fluid mt-5">
+        <div class="border-bottom mb-5 d-flex justify-content-center" style="position: relative;">
+            <h6 id="name" class="mr-2 mt-0 mb-0 pb-0 text-uppercase" style="background-color: white; padding: 2%; position: absolute; bottom: -0.5em;">Акты</h6>
+        </div>
+    </div>
+
+    {% if performance.background1 %}
+        <div class="container d-flex justify-content-center" id="container3">
+            <div class="carousel">
+                <div class="carousel-nav mb-5 d-flex justify-content-center">
+                    {% if performance.background1 %}<button id="for_acts" class="ml-3 mr-3" onclick="showBackground(1)">I действие</button>{% endif %}
+                    {% if performance.background2 %}<button id="for_acts" class="ml-3 mr-3" onclick="showBackground(2)">II действие </button>{% endif %}
+                    {% if performance.background3 %}<button id="for_acts" class="ml-3 mr-3" onclick="showBackground(3)">III действие </button>{% endif %}
+                </div>
+                <div id="acts" class="carousel-content mb-5 mr-5 ml-5">
+                    {% if performance.background1 %}
+                        <div class="background m-5" id="background1">
+                            {{ performance.background1|linebreaks }}
+                        </div>
+                    {% endif %}
+                    {% if performance.background2 %}
+                        <div class="background m-5" id="background2">
+                            {{ performance.background2|linebreaks }}
+                        </div>
+                    {% endif %}
+                    {% if performance.background3 %}
+                        <div class="background m-5" id="background3">
+                            {{ performance.background3|linebreaks }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="container-fluid mt-5 mb-5">
+        <div class="border-bottom mb-5 d-flex justify-content-center" style="border-color: #dbb071; position: relative;">
+            <h6 id="name" class="mr-2 mt-0 mb-0 pb-0 text-uppercase" style="background-color: white; padding: 1%; position: absolute;bottom: -0.5em;">История</h6>
+        </div>
+    </div>
+
+    {% if performance.history %}
+    <div class="container mb-5 mt-5" id="container4">
+        {{ performance.history|linebreaks }}
+    </div>
+    {% endif %}
+
+    <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'slick/slick.min.js' %}"></script>
+    <script type="text/javascript">
+        function showBackground(index) {
+            const backgrounds = document.getElementsByClassName('background');
+            for (let i = 0; i < backgrounds.length; i++) {
+                backgrounds[i].classList.remove('active');
+            }
+            document.getElementById('background' + index).classList.add('active');
+
+            const buttons = document.getElementsByClassName('carousel-nav')[0].getElementsByTagName('button');
+            for (let i = 0; i < buttons.length; i++) {
+                if (i === index - 1) {
+                    buttons[i].style.color = '#caa165';
+                } else {
+                    buttons[i].style.color = '';
+                }
+            }
+
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const slBlock = document.getElementById('sl-block');
+            const infoOverlay = document.querySelector('.info-overlay');
+
+            if (slBlock && infoOverlay) {
+                // Function to adjust the height and width
+                function adjustOverlayDimensions() {
+                    const slBlockHeight = slBlock.offsetHeight;
+                    const slBlockWidth = slBlock.offsetWidth;
+                    console.log('slBlockHeight:', slBlockHeight); // Debug: Check the height of slBlock
+                    console.log('slBlockWidth:', slBlockWidth); // Debug: Check the width of slBlock
+                    infoOverlay.style.height = `${slBlockHeight}px`;
+                    infoOverlay.style.width = `${slBlockWidth * 0.6}px`; // Set the width to 50% of the carousel width
+                    console.log('infoOverlay.style.height:', infoOverlay.style.height); // Debug: Check the height being set for infoOverlay
+                    console.log('infoOverlay.style.width:', infoOverlay.style.width); // Debug: Check the width being set for infoOverlay
+                }
+
+                // Initial adjustment after all images have loaded
+                function imagesLoaded(container, callback) {
+                    const images = container.getElementsByTagName('img');
+                    let loadedImages = 0;
+                    const totalImages = images.length;
+
+                    if (totalImages === 0) {
+                        callback();
+                    }
+
+                    for (let i = 0; i < totalImages; i++) {
+                        if (images[i].complete) {
+                            loadedImages++;
+                            if (loadedImages === totalImages) {
+                                setTimeout(callback, 500); // Add a delay before callback
+                            }
+                        } else {
+                            images[i].addEventListener('load', () => {
+                                loadedImages++;
+                                if (loadedImages === totalImages) {
+                                    setTimeout(callback, 500); // Add a delay before callback
+                                }
+                            });
+                        }
+                    }
+                }
+
+                showBackground(1);
+                imagesLoaded(slBlock, adjustOverlayDimensions);
+
+                // Adjust the height and width on window resize
+                window.addEventListener('resize', adjustOverlayDimensions);
+
+                // Adjust the height and width initially
+                setTimeout(adjustOverlayDimensions, 500); // Add a delay before initial adjustment
+            }
+        });
+        $(document).ready(function() {
+            $('#more_info').click(function(e) {
+                e.preventDefault();
+                // Показываем блок info-overlay
+                $('.info-overlay').addClass('show');
+                // Скрываем кнопку more_info
+                $('#more_info').addClass('d-none');
+                $('#sl-block').addClass('darkened');
+            });
+
+            $('#less_info').click(function(e) {
+                e.preventDefault();
+                // Скрываем блок info-overlay
+                $('.info-overlay').removeClass('show');
+                // Показываем кнопку more_info
+                $('#more_info').removeClass('d-none');
+                $('#sl-block').removeClass('darkened');
+            });
+        });
+        $(document).ready(function() {
+            $('.sl').slick({
+                draggable: false,
+                speed: 0,
+                asNavFor: '.sl2',
+                arrows: false,
+                cssEase: 'linear',
+            });
+            $('.sl2').slick({
+                centerMode: true,
+                focusOnSelect: true,
+                slidesToShow: 5,
+                speed: 700,
+                adaptiveHeight: true,
+                asNavFor: '.sl',
+                draggable: false,
+                nextArrow: '<button class="next" type="button" style="background: transparent; z-index:9999; border: none; width: 4%; position: absolute; top: 50%; display: block; padding: 0; transform: translate(0, -50%); cursor: pointer; outline: none;"><img src="{% static 'img/carousel-rightt.png' %}" style="width: 100%"></button>',
+                prevArrow: '<button class="prev" type="button" style="background: transparent; z-index:9999; border: none; width: 4%; position: absolute; top: 50%; display: block; padding: 0; transform: translate(0, -50%); cursor: pointer; outline: none;"><img src="{% static 'img/carousel-leftt.png' %}" style="width: 100%"></button>',
+            });
+
+            function adjustContainerClass() {
+                const container1 = document.getElementById('container1');
+                const container2 = document.getElementById('container2');
+                const container3 = document.getElementById('container3');
+                const container4 = document.getElementById('container4');
+                if (container1) {
+                    if (window.innerWidth < 992) {
+                        container1.classList.remove('container');
+                        container1.classList.add('container-fluid');
+                        container2.classList.remove('container');
+                        container2.classList.add('container-fluid');
+                        container3.classList.remove('container');
+                        container3.classList.add('container-fluid');
+                        container4.classList.remove('container');
+                        container4.classList.add('container-fluid');
+                    } else {
+                        container1.classList.remove('container-fluid');
+                        container1.classList.add('container');
+                        container2.classList.remove('container-fluid');
+                        container2.classList.add('container');
+                        container3.classList.remove('container-fluid');
+                        container3.classList.add('container');
+                        container4.classList.remove('container-fluid');
+                        container4.classList.add('container');
+                    }
+                }
+            }
+
+            // Run on window resize and page load
+            window.addEventListener('resize', adjustContainerClass);
+            adjustContainerClass(); // Initial check on page load
+        });
+    </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% endblock %}

@@ -1,0 +1,315 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+<style>
+    .img-fluid {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .text-uppercase {
+        text-transform: uppercase;
+    }
+
+    .border-bottom {
+        border-bottom-width: 2px;
+    }
+
+    @media (min-width: 576px) {
+        h3 {
+            font-size: 2.5rem;
+        }
+        h6 {
+            font-size: 1.6rem;
+        }
+        #ttt {
+            font-size: 2.3rem;
+        }
+        #mobile-header{
+            box-shadow: 1px 1px 12px 1px rgba(0,0,0,0.11);
+        }
+        #back{
+            display: none !important;
+        }
+    }
+
+    @media (min-width: 768px) {
+        h3 {
+            font-size: 2.5rem;
+        }
+        h6 {
+            font-size: 1.6rem;
+        }
+        #ttt {
+            font-size: 2.1rem;
+        }
+        #mobile-header{
+            box-shadow: 1px 1px 12px 1px rgba(0,0,0,0.11);
+        }
+        #yes{
+            margin-top: 12% !important;
+        }
+        #back{
+            display: none !important;
+        }
+    }
+
+    @media (min-width: 992px) {
+        h3 {
+            font-size: 1.6rem;
+        }
+        h6 {
+            font-size: 1rem;
+        }
+        #ttt {
+            font-size: 1.2rem;
+        }
+        #yes{
+            margin-top: 4% !important;
+        }
+        #back{
+            display: flex !important;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        h3 {
+            font-size: 1.8rem;
+        }
+        h6 {
+            font-size: 1rem;
+        }
+        #ttt {
+            font-size: 1.13rem;
+        }
+        #yes{
+            margin-top: 3% !important;
+        }
+        #back{
+            display: flex !important;
+        }
+    }
+    @media (min-width: 1800px) {
+        h3 {
+            font-size: 2rem;
+        }
+        h6 {
+            font-size: 1.2rem;
+        }
+        #ttt {
+            font-size: 1.3rem;
+        }
+        #yes{
+            margin-top: 3% !important;
+        }
+        #back{
+            display: flex !important;
+        }
+    }
+</style>
+
+<div style="background-color: white; box-shadow: 1px 1px 12px 1px rgba(0,0,0,0.11)">
+    {% include 'header.html' %}
+</div>
+
+
+<div class="container-fluid mt-5" id="yes">
+    <div class="d-flex align-items-center justify-content-center mb-3" style="position: relative;">
+        <h3 class="text-uppercase text-center mb-4" style="flex-grow: 1; color: #a88756">{{ backstage.title }}</h3>
+    </div>
+    <div class="border-bottom mb-4" style="border-color: #dbb071; position: relative;">
+        <h6 id="date" class="mr-2 mt-0 mb-0 pb-0" style="background-color: white; padding: 1%; position: absolute; right: 0; bottom: -0.5em;">{{ backstage.date|date:"d/m/Y" }}</h6>
+        <a href="{% url 'backstage' %}" class="back-arrow d-flex pl-2 pr-3" id="back" style="position: absolute; left: 0; top: 50%; transform: translateY(-36%); color: black; text-decoration: none; background-color: white">
+            <p class="text-uppercase font-weight-bold ml-2" style="font-size: 1.4rem; position: relative; top: -0.4rem">&larr;</p><p class="text-uppercase font-weight-bold ml-2">Backstage</p>
+        </a>
+    </div>
+</div>
+
+    <div id="responsive-container" class="container">
+        <div class="row">
+            <!-- Block 1 -->
+            <div class="col-12 my-0">
+                {% if backstage.block1_type == "text" %}
+                    <div id="ttt" class="my-3">
+                        {{ backstage.block1_content|linebreaksbr }}
+                    </div>
+                {% elif backstage.block1_type == "image" %}
+                    {% if backstage.block1_picture %}
+                        <div class="my-3 text-center">
+                            <img src="{{ backstage.block1_picture.url }}" alt="Backstage Picture" class="img-fluid" style="object-fit: cover; width: 100%; height: 650px;">
+                        </div>
+                    {% endif %}
+                {% elif backstage.block1_type == "media" %}
+                    {% if backstage.block1_media %}
+                        <div class="text-center my-3">
+                            {% if backstage.block1_media.url|is_audio %}
+                                <audio controls class="w-100">
+                                    <source src="{{ backstage.block1_media.url }}" type="audio/mpeg">
+                                    Your browser does not support the audio element.
+                                </audio>
+                            {% elif backstage.block1_media.url|is_video %}
+                                <video controls class="w-100">
+                                    <source src="{{ backstage.block1_media.url }}" type="video/mp4">
+                                    Your browser does not support the video element.
+                                </video>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+
+            <!-- Block 2 -->
+            <div class="col-12 my-0">
+                {% if backstage.block2_type == "text" %}
+                    <div id="ttt" class="my-3">
+                        {{ backstage.block2_content|linebreaksbr }}
+                    </div>
+                {% elif backstage.block2_type == "image" %}
+                    {% if backstage.block2_picture %}
+                        <div class="my-3 text-center">
+                            <img src="{{ backstage.block2_picture.url }}" alt="Backstage Picture" class="img-fluid" style="object-fit: cover; width: 100%; height: 650px;">
+                        </div>
+                    {% endif %}
+                {% elif backstage.block2_type == "media" %}
+                    {% if backstage.block2_media %}
+                    <div class="text-center my-3">
+                        {% if backstage.block2_media.url|is_audio %}
+                            <audio controls class="w-100">
+                                <source src="{{ backstage.block2_media.url }}" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        {% elif backstage.block2_media.url|is_video %}
+                            <video controls class="w-100">
+                                <source src="{{ backstage.block2_media.url }}" type="video/mp4">
+                                Your browser does not support the video element.
+                            </video>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+
+            <!-- Block 3 -->
+            <div class="col-12 my-0">
+                {% if backstage.block3_type == "text" %}
+                    <div id="ttt" class="my-3">
+                        {{ backstage.block3_content|linebreaksbr }}
+                    </div>
+                {% elif backstage.block3_type == "image" %}
+                    {% if backstage.block3_picture %}
+                        <div class="my-3 text-center">
+                            <img src="{{ backstage.block3_picture.url }}" alt="Backstage Picture" class="img-fluid">
+                        </div>
+                    {% endif %}
+                {% elif backstage.block3_type == "media" %}
+                    {% if backstage.block3_media %}
+                    <div class="text-center my-3">
+                        {% if backstage.block3_media.url|is_audio %}
+                            <audio controls class="w-100">
+                                <source src="{{ backstage.block3_media.url }}" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        {% elif backstage.block3_media.url|is_video %}
+                            <video controls class="w-100">
+                                <source src="{{ backstage.block3_media.url }}" type="video/mp4">
+                                Your browser does not support the video element.
+                            </video>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+
+            <!-- Block 4 -->
+            <div class="col-12 my-0">
+                {% if backstage.block4_type == "text" %}
+                    <div id="ttt" class="my-3">
+                        {{ backstage.block4_content|linebreaksbr }}
+                    </div>
+                {% elif backstage.block4_type == "image" %}
+                    {% if backstage.block4_picture %}
+                        <div class="my-3 text-center">
+                            <img src="{{ backstage.block4_picture.url }}" alt="Backstage Picture" class="img-fluid">
+                        </div>
+                    {% endif %}
+                {% elif backstage.block4_type == "media" %}
+                    {% if backstage.block4_media %}
+                    <div class="text-center my-3">
+                        {% if backstage.block4_media.url|is_audio %}
+                            <audio controls class="w-100">
+                                <source src="{{ backstage.block4_media.url }}" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        {% elif backstage.block4_media.url|is_video %}
+                            <video controls class="w-100">
+                                <source src="{{ backstage.block4_media.url }}" type="video/mp4">
+                                Your browser does not support the video element.
+                            </video>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+
+            <!-- Block 5 -->
+            <div class="col-12 my-0">
+                {% if backstage.block5_type == "text" %}
+                    <div id="ttt" class="my-3">
+                        {{ backstage.block5_content|linebreaksbr }}
+                    </div>
+                {% elif backstage.block5_type == "image" %}
+                    {% if backstage.block5_picture %}
+                        <div class="my-3 text-center">
+                            <img src="{{ backstage.block5_picture.url }}" alt="Backstage Picture" class="img-fluid">
+                        </div>
+                    {% endif %}
+                {% elif backstage.block5_type == "media" %}
+                    {% if backstage.block5_media %}
+                    <div class="text-center my-3">
+                        {% if backstage.block5_media.url|is_audio %}
+                            <audio controls class="w-100">
+                                <source src="{{ backstage.block5_media.url }}" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        {% elif backstage.block5_media.url|is_video %}
+                            <video controls class="w-100">
+                                <source src="{{ backstage.block5_media.url }}" type="video/mp4">
+                                Your browser does not support the video element.
+                            </video>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+<script>
+    function adjustContainerClass() {
+        const container = document.getElementById('responsive-container');
+        const back = document.getElementById('back')
+        if (window.innerWidth < 992) {
+            container.classList.remove('container');
+            container.classList.add('container-fluid');
+            back.classList.add('d-none');
+        } else {
+            container.classList.remove('container-fluid');
+            container.classList.add('container');
+            back.classList.remove('d-none');
+        }
+    }
+
+    // Run on page load
+    adjustContainerClass();
+
+    // Run on window resize
+    window.addEventListener('resize', adjustContainerClass);
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% endblock %}

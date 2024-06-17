@@ -1,0 +1,260 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<style>
+.text-b18f5a {
+    color: #bf9b64;
+}
+
+.text-9c7f53 {
+    color: #bf9b64;
+}
+
+@media (min-width: 576px) {
+    .aaa {
+        margin-top: 12% !important;
+    }
+    h2 {
+        font-size: 2.8em;
+    }
+    h4 {
+        font-size: 2.1rem;
+        max-width: 40vw;
+        text-align: center;
+        padding-right: 0 !important;
+    }
+    .post-title {
+        font-size: 2.2rem;
+    }
+    .post-text {
+        font-size: 1.9rem;
+    }
+    .small {
+        font-size: 1.9rem;
+        bottom: -2.7rem;
+    }
+    .aaa {
+        display: block;
+        align-items: center;
+    }
+    .post-image {
+        height: 25vh;
+    }
+    #mobile-header {
+        box-shadow: 1px 1px 12px 1px rgba(0, 0, 0, 0.11);
+    }
+}
+
+@media (min-width: 768px) {
+    .aaa {
+        margin-top: 12% !important;
+    }
+    h2 {
+        font-size: 2.8em;
+    }
+    h4 {
+        font-size: 2.1rem;
+        max-width: 40vw;
+        text-align: center;
+        padding-right: 0 !important;
+    }
+    .post-title {
+        font-size: 2.2rem;
+        letter-spacing: .2px;
+    }
+    .post-text {
+        font-size: 1.9rem;
+    }
+    .small {
+        font-size: 1.9rem;
+         bottom: -2.7rem;
+    }
+    .aaa {
+        display: block;
+        align-items: center;
+    }
+    .post-image {
+        height: 550px;
+    }
+    #num {
+        font-size: 2.2rem;
+    }
+    #prevnext {
+        width: 38px;
+    }
+    #mobile-header {
+        box-shadow: 1px 1px 12px 1px rgba(0, 0, 0, 0.11);
+    }
+}
+
+@media (min-width: 992px) {
+    .aaa {
+        margin-top: 1.8% !important;
+    }
+    h2 {
+        font-size: 2rem;
+    }
+    h4 {
+        font-size: 1.6rem;
+    }
+    .post-title {
+        font-size: 1.3rem;
+    }
+    .post-text {
+        font-size: 1rem;
+    }
+    .small {
+        font-size: 1rem;
+         bottom: -1.9rem;
+    }
+    .post-image {
+        height: 300px;
+    }
+    #prevnext {
+        width: 22px;
+    }
+    #num {
+        font-size: 1.1rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .aaa{
+        margin-top: 2.3% !important;
+    }
+    h2 {
+        font-size: 2rem;
+    }
+    h4 {
+        font-size: 1.7rem;
+    }
+    .post-title {
+        font-size: 1.3rem;
+    }
+    .post-text {
+        font-size: 1rem;
+    }
+    .small {
+        font-size: 1rem;
+         bottom: -1.9rem;
+    }
+    .post-image {
+        height: 35vh;
+    }
+    #num {
+        font-size: 1.3rem;
+    }
+    #prevnext {
+        width: 21px;
+    }
+}
+</style>
+
+<div style="background-color: white; box-shadow: 1px 1px 12px 1px rgba(0,0,0,0.11)">
+    {% include 'header.html' %}
+</div>
+
+<div class="aaa mt-4 d-flex justify-content-between align-items-center container" id="change">
+    <h2 class="text-uppercase mb-1 pr-3" style="background-color: white; color: #bf9b64">Backstage</h2>
+    <div class="container" id="change2" style="position: absolute; width: 100%; border-bottom: 1px solid black; z-index: -1"></div>
+</div>
+
+<div class="container">
+    <div class="row mt-3">
+        {% for backstage in backstages %}
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 mt-4 mb-4">
+                <a href="{% url 'backstage_detail' backstage_pk=backstage.id %}" class="d-block text-decoration-none" style="color: #000000; text-decoration: none">
+                    <div class="post d-flex flex-column h-100 position-relative" style="border-radius: 0px; border: 0.1px solid rgba(0,0,0,0.14); position: relative;">
+                        <div class="post-image" style="background-image: url('{{ backstage.main_image.url }}'); background-size: cover; background-position: 50%; border-radius: 0px;"></div>
+                        <div class="post-content px-4 mt-3 mb-2 flex-grow-1" style="background-color: white; display: flex; flex-direction: column; justify-content: flex-start;">
+                            <h5 class="post-title text-uppercase font-weight-bold text-b18f5a">{{ backstage.title }}</h5>
+                            <p class="post-text">{{ backstage.description }}</p>
+                        </div>
+                    <div class="position-relative pt-3"></div>
+                            <p class="small text-9c7f53 post-type mx-4" style="position: absolute; background-color: white; padding: 1% 3% 1% 3%; right: 0">{{ backstage.type }}</p>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% if backstages.has_other_pages %}
+    <div class="pagination mb-5 mt-4" style="display: flex; justify-content: center; align-items: center;">
+        {% if backstages.has_previous %}
+            <a href="?page=1" style="margin-right: 15px; text-decoration: none; color: black;"><img id="prevnext" src="{% static 'img/arrow-left.png' %}"></a>
+            <a href="?page={{ backstages.previous_page_number }}" style="margin-right: 10px; text-decoration: none; color: black;"><img id="prevnext" src="{% static 'img/arrowl.png' %}"></a>
+        {% endif %}
+
+        {% for num in page_range %}
+            {% if backstages.number == num %}
+                <span id="num" class="mr-2 ml-2 font-weight-bold" style="color: #bc9762">{{ num }}</span>
+            {% else %}
+                <div class="mr-2 ml-2" style="display: inline-block; position: relative;">
+                    <a id="num" href="?page={{ num }}" style="text-decoration: none; color: black;">{{ num }}</a>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        {% if backstages.has_next %}
+            <a href="?page={{ backstages.next_page_number }}" style="margin-left: 10px; text-decoration: none; color: black;"><img id="prevnext" src="{% static 'img/arrow.png' %}"></a>
+            <a href="?page={{ backstages.paginator.num_pages }}" style="margin-left: 15px; text-decoration: none; color: black;"><img id="prevnext" src="{% static 'img/arrow-right.png' %}"></a>
+        {% endif %}
+    </div>
+{% endif %}
+
+
+ <script>
+    function adjustContainerClass() {
+        const container = document.getElementById('change');
+        const container2 = document.getElementById('change2')
+
+        if (window.innerWidth < 992) {
+            container.classList.remove('container');
+            container.classList.add('container-fluid');
+            container2.classList.remove('container');
+            container2.classList.add('container-fluid');
+        } else {
+            container.classList.add('container');
+            container.classList.remove('container-fluid');
+            container2.classList.add('container');
+            container2.classList.remove('container-fluid');
+        }
+    }
+
+    window.addEventListener('load', function() {
+        function setCardHeights() {
+            var rows = document.querySelectorAll('.row.mt-3');
+
+            rows.forEach(function(row) {
+                var cards = row.querySelectorAll('.card.mb-5');
+
+                var maxHeight = 0;
+                cards.forEach(function(card) {
+                    maxHeight = Math.max(maxHeight, card.offsetHeight);
+                });
+
+                cards.forEach(function(card) {
+                    card.style.height = maxHeight + 'px';
+                });
+            });
+        }
+
+        setCardHeights();
+        adjustContainerClass();
+
+        window.addEventListener('resize', function() {
+            setCardHeights();
+            adjustContainerClass();
+        });
+    });
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% endblock %}
